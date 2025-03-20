@@ -4,14 +4,21 @@ import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
+  const dispatch = useDispatch();
 
   const handleButtonClick = () => {
     // validate the form data
@@ -30,8 +37,27 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed up
+          // when the user sign up then update the profile
           const user = userCredential.user;
-          console.log(user);
+
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName } = auth.current;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(
+                `Error occured while updating the profile - ${error}`
+              );
+            });
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -47,8 +73,8 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          console.log(user);
+          // const user = userCredential.user;
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -83,6 +109,7 @@ const Login = () => {
             type="text"
             placeholder="Full Name"
             className="p-2 my-4 w-full bg-gray-700"
+            ref={name}
           />
         )}
         <input
