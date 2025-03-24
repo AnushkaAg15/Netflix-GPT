@@ -73,7 +73,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           // const user = userCredential.user;
-          navigate("/browse");
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -91,13 +91,14 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute">
-        <img src={BACKGROUND_IMAGE} alt="background_image" />
+        <img src={BACKGROUND_IMAGE} alt="background_image" aria-hidden={true} />
       </div>
       <form
+        aria-labelledby="form-heading"
         className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
         onSubmit={(e) => e.preventDefault()}
       >
-        <h1 className="font-bold text-3xl py-4">
+        <h1 className="font-bold text-3xl py-4" id="form-heading">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -113,12 +114,14 @@ const Login = () => {
           placeholder="Email Address"
           className="p-2 my-4 w-full bg-gray-700"
           ref={email}
+          aria-label="Email Address"
         />
         <input
           type="password"
           placeholder="Password"
           className="p-2 my-4 w-full bg-gray-700"
           ref={password}
+          aria-label="Password"
         />
         <p className="text-red-700 p-2 font-bold">{errorMessage}</p>
         <button

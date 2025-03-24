@@ -26,6 +26,12 @@
 - created a movie slice
 - planning MainComponent and sceondary comp
 - Embedded the yt video and make it autoplay and mute (added tailwind css like aspect-video)
+- Build secondary container
+- Build movie list
+- build movie card
+- TMDB image CDN through guide
+- made the browse page look even more amaazing
+-
 
 # Features
 

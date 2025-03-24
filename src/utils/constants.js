@@ -11,10 +11,11 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YmY4YTJhYzc0OGVmYzE4NjdlZTljMDllNDMwMjBjNCIsIm5iZiI6MTc0MjUyNjI5Mi44MjgsInN1YiI6IjY3ZGNkNzU0MWNkYTFkYmI0NjdhNWU2OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7Mt4g0YYUk2kEAwlnzTDS9uR8m43vBbwhWkFtkvfWMo",
+    Authorization: "Bearer " + process.env.REACT_APP_TMDB_AUTH,
   },
 };
 
 export const MOVIES_LIST_URL =
-  "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+  "https://api.themoviedb.org/3/movie/now_playing?&page=1";
+
+export const IMG_CDN = "https://image.tmdb.org/t/p/w500/";
